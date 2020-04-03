@@ -1,0 +1,14 @@
+package com.fightwithoutfire.jpa.test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class JPATest {
+
+	@Test
+	void test() {
+		fail("Not yet implemented");
+	}
+
+}

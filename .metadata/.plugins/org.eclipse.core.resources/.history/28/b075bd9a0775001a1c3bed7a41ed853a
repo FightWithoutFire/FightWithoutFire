@@ -1,0 +1,109 @@
+package com.fightwithoutfire.jpa.test;
+
+import java.util.Date;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.fightwithoutfire.jpa.helloworld.Customer;
+
+class JPATest {
+	
+	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
+	private EntityTransaction transaction;
+	
+	
+	@BeforeEach
+	public void init() {
+		entityManagerFactory = Persistence.createEntityManagerFactory("jpa-1");
+		entityManager = entityManagerFactory.createEntityManager();
+		transaction = entityManager.getTransaction();
+		transaction.begin();
+	}
+	
+	@AfterEach
+	public void destroy() {
+		transaction.commit();
+		entityManager.close();
+		entityManagerFactory.close();
+		
+	}
+	
+	@Test
+	public void testMerge1() {
+		Customer customer = new Customer();
+		customer.setAge(18);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("cc@qq.com");
+		customer.setLastName("CC");
+		Customer customer2 =entityManager.merge(customer);
+		System.out.println("customer#id"+customer.getId());
+		System.out.println("customer2#id"+customer2.getId());
+	}
+	
+	@Test
+	public void testMerge2() {
+		Customer customer = new Customer();
+		customer.setAge(18);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("cc@qq.com");
+		customer.setLastName("CC");
+		customer.setId(300);
+		Customer customer2 =entityManager.merge(customer);
+		System.out.println("customer#id"+customer.getId());
+		System.out.println("customer2#id"+customer2.getId());
+	}
+	
+	@Test
+	void testRemove() {
+		
+		Customer customer = new Customer();
+		customer.setId(1144);
+		
+		customer = entityManager.find(Customer.class, 1144);
+		entityManager.remove(customer);
+		
+	}
+	
+	@Test
+	void testGetReference() {
+		
+		Customer customer = entityManager.getReference(Customer.class, 1144);
+		System.out.println("------------------");
+		System.out.println(customer);
+		
+	}
+
+	@Test
+	public void testFind() {
+		
+		Customer customer = entityManager.find(Customer.class, 1144);
+		System.out.println("------------------");
+		System.out.println(customer);
+		
+	}
+	
+	@Test
+	void testPersistence() {
+		
+		Customer customer = new Customer();
+		customer.setAge(15);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("111@qq.com");
+		customer.setLastName("BB");
+		entityManager.persist(customer);
+		System.out.println(customer.getId());
+		
+	}
+
+}

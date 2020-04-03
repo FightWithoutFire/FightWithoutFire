@@ -1,0 +1,79 @@
+package com.fightwithoutfire.jpa.test;
+
+import java.util.Date;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import org.junit.jupiter.api.Test;
+
+import com.fightwithoutfire.jpa.helloworld.Customer;
+
+class JPATest {
+	
+	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
+	private EntityTransaction transaction;
+	
+	
+	public void init() {
+		entityManagerFactory = Persistence.createEntityManagerFactory("jpa-1");
+		entityManager = entityManagerFactory.createEntityManager();
+		transaction = entityManager.getTransaction();
+		transaction.begin();
+	}
+	
+	
+	public void destroy() {
+		transaction.commit();
+		entityManager.close();
+		entityManagerFactory.close();
+		
+	}
+	
+	@Test
+	void testRemove() {
+		init();
+		Customer customer = new Customer();
+		customer.setId(1144);
+		
+		customer = entityManager.find(Customer.class, 1144);
+		entityManager.remove(customer);
+		destroy();
+	}
+	
+	@Test
+	void testGetReference() {
+		init();
+		Customer customer = entityManager.getReference(Customer.class, 1144);
+		System.out.println("------------------");
+		System.out.println(customer);
+		destroy();
+	}
+
+	@Test
+	public void testFind() {
+		init();
+		Customer customer = entityManager.find(Customer.class, 1144);
+		System.out.println("------------------");
+		System.out.println(customer);
+		destroy();
+	}
+	
+	@Test
+	void testPersistence() {
+		init();
+		Customer customer = new Customer();
+		customer.setAge(15);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("111@qq.com");
+		customer.setLastName("BB");
+		entityManager.persist(customer);
+		System.out.println(customer.getId());
+		destroy();
+	}
+
+}

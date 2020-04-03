@@ -1,0 +1,5 @@
+package com.fightwithoutfire.jpa.helloworld;
+
+public class Customer {
+
+}

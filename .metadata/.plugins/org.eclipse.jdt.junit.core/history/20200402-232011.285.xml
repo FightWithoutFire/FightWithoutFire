@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="JPATest" project="jpa-1" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.fightwithoutfire.jpa.test.JPATest" time="2.915" displayname="JPATest" uniqueid="[engine:junit-jupiter]/[class:com.fightwithoutfire.jpa.test.JPATest]">
+    <testcase name="testFind" classname="com.fightwithoutfire.jpa.test.JPATest" time="2.915" displayname="testFind()" uniqueid="[engine:junit-jupiter]/[class:com.fightwithoutfire.jpa.test.JPATest]/[method:testFind()]"/>
+  </testsuite>
+</testrun>
